@@ -10,7 +10,7 @@ import { Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
-
+import GWLOGO from '@/public/gw_logo.png'
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
@@ -54,7 +54,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="container flex h-screen max-w-screen-md items-center justify-center">
+    <div className="container flex h-screen  items-center justify-center">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold">Log in to GorillaTix</CardTitle>
@@ -64,7 +64,7 @@ export default function LoginPage() {
           <div className="mb-4 mt-2">
             <div className="relative h-24 w-24">
               <Image
-                src="/images/gorillatix-logo.png"
+                src={GWLOGO}
                 alt="GorillaTix Logo"
                 fill
                 sizes="96px"

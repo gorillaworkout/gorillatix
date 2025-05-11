@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import GWLOGO  from '@/public/gw_logo.png'
 
 export function SiteHeader() {
   const pathname = usePathname()
@@ -51,7 +52,7 @@ export function SiteHeader() {
           <Link href="/" className="flex items-center space-x-2">
             <div className="relative h-10 w-10">
               <Image
-                src="/images/gorillatix-logo.png"
+                src={GWLOGO}
                 alt="GorillaTix Logo"
                 fill
                 sizes="40px"
