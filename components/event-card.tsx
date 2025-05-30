@@ -5,23 +5,14 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { formatDate } from "@/lib/utils"
+import { EventItem } from "@/types/event"
 
 interface EventCardProps {
-  event: {
-    id: string
-    slug: string
-    title: string
-    date: string
-    location: string
-    imageUrl: string
-    price: number
-    category: string
-    ticketsAvailable: number
-  }
+  event: EventItem;
+  key: string
 }
-
-export function EventCard({ event }: EventCardProps) {
-  const { id, slug, title, date, location, imageUrl, price, category, ticketsAvailable } = event
+export function EventCard(props: EventCardProps) {
+  const { id, slug, title, date, location, imageUrl, price, category, ticketsAvailable } = props.event
 
   return (
     <Card className="overflow-hidden">

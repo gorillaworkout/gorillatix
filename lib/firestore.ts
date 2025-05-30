@@ -14,44 +14,8 @@ import {
   serverTimestamp,
 } from "firebase/firestore"
 import { db } from "./firebase"
+import { EventInput, EventItem } from "@/types/event"
 
-// Event types
-export interface Event {
-  id: string
-  slug: string
-  title: string
-  description: string
-  date: string
-  time: string
-  location: string
-  venue: string
-  address: string
-  imageUrl: string
-  price: number
-  category: string
-  ticketsAvailable: number
-  organizer: string
-  organizerDescription: string
-  createdAt: Timestamp
-  updatedAt: Timestamp
-}
-
-export interface EventInput {
-  slug: string
-  title: string
-  description: string
-  date: string
-  time: string
-  location: string
-  venue: string
-  address: string
-  imageUrl: string
-  price: number
-  category: string
-  ticketsAvailable: number
-  organizer: string
-  organizerDescription: string
-}
 
 // Get all events
 export async function getEvents() {
@@ -61,7 +25,7 @@ export async function getEvents() {
   return eventsSnapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
-  })) as Event[]
+  })) as EventItem[]
 }
 
 // Get event by slug
@@ -78,7 +42,7 @@ export async function getEventBySlug(slug: string) {
   return {
     id: doc.id,
     ...doc.data(),
-  } as Event
+  } as EventItem
 }
 
 // Get event by ID
@@ -93,7 +57,7 @@ export async function getEventById(id: string) {
   return {
     id: eventSnapshot.id,
     ...eventSnapshot.data(),
-  } as Event
+  } as EventItem
 }
 
 // Create a new event
@@ -139,7 +103,7 @@ export async function getEventsByCategory(category: string) {
   return querySnapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
-  })) as Event[]
+  })) as EventItem[]
 }
 
 // Search events
@@ -158,7 +122,7 @@ export async function searchEvents(searchTerm: string) {
         ({
           id: doc.id,
           ...doc.data(),
-        }) as Event,
+        }) as EventItem,
     )
     .filter(
       (event) =>
@@ -169,18 +133,18 @@ export async function searchEvents(searchTerm: string) {
 }
 
 // Get upcoming events
-export async function getUpcomingEvents(limit = 10) {
+export async function getUpcomingEvents(limitItem = 10) {
   const eventsCollection = collection(db, "events")
   const today = new Date().toISOString().split("T")[0] // Format: YYYY-MM-DD
 
-  const q = query(eventsCollection, where("date", ">=", today), orderBy("date", "asc"), limit(limit))
+  const q = query(eventsCollection, where("date", ">=", today), orderBy("date", "asc"), limit(limitItem))
 
   const querySnapshot = await getDocs(q)
 
   return querySnapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
-  })) as Event[]
+  })) as unknown as Event[]
 }
 
 // Order types

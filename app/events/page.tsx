@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, Suspense } from "react"
+import { useState, useEffect, Suspense, SetStateAction } from "react"
 import { useSearchParams } from "next/navigation"
 import { EventCard } from "@/components/event-card"
 import { SearchForm } from "@/components/search-form"
@@ -8,6 +8,7 @@ import { getEvents, searchEvents, getEventsByCategory } from "@/lib/firestore"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
 import { Skeleton } from "@/components/ui/skeleton"
+import { EventItem } from "@/types/event"
 
 function EventsLoading() {
   return (
@@ -33,8 +34,8 @@ function EventsList() {
   const categoryParam = searchParams.get("category")
   const queryParam = searchParams.get("query")
 
-  const [events, setEvents] = useState([])
-  const [filteredEvents, setFilteredEvents] = useState([])
+  const [events, setEvents] = useState<EventItem[]>([]);
+  const [filteredEvents, setFilteredEvents] = useState<EventItem[]>([])
   const [category, setCategory] = useState(categoryParam || "all")
   const [searchQuery, setSearchQuery] = useState(queryParam || "")
   const [isLoading, setIsLoading] = useState(true)
@@ -65,11 +66,11 @@ function EventsList() {
     fetchEvents()
   }, [category, searchQuery])
 
-  const handleSearch = (query) => {
+  const handleSearch = (query: SetStateAction<string>) => {
     setSearchQuery(query)
   }
 
-  const handleCategoryChange = (value) => {
+  const handleCategoryChange = (value: SetStateAction<string>) => {
     setCategory(value)
   }
 

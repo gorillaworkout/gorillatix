@@ -1,7 +1,7 @@
 import { EventCard } from "@/components/event-card"
 import { HeroSection } from "@/components/hero-section"
 import { Button } from "@/components/ui/button"
-import { getEvents } from "@/lib/data"
+import { getEvents } from "@/lib/firestore"
 import Link from "next/link"
 
 export default async function Home() {
